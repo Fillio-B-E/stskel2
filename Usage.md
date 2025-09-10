@@ -1,4 +1,5 @@
 # How to use
+
 1. Login/register using the input box.
 2. See more at landing page.
 3. Pick a restaurant you want to reserve.
