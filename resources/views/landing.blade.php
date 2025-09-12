@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>BOOKED. — Landing</title>
 
-    <!-- Google fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CDN for quick prototype (no build step required) -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,7 +27,6 @@
         }
     </script>
     <style>
-        /* small helpers to more closely match the sample */
         .hero-title {
             text-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
         }
@@ -42,12 +41,13 @@
             </div>
 
             <div class="flex-1 flex justify-center">
-                <ul class="flex space-x-10 text-white font-medium">
+                <ul class="flex space-x-10 text-white font-display font-semibold">
                     <li><a href="#about" class="hover:text-yellow-400">About</a></li>
                     <li><a href="#reservation" class="hover:text-yellow-400">Reservation</a></li>
                     <li><a href="#schedule" class="hover:text-yellow-400">Schedule</a></li>
                     <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
                 </ul>
+
             </div>
 
             <div class="flex items-center space-x-2">
@@ -64,7 +64,7 @@
             <div class="absolute inset-0 bg-black/65"></div>
 
             <div class="relative z-10 container mx-auto px-6 flex flex-col items-center justify-center text-center min-h-screen">
-                <h1 class="text-white font-display font-extrabold text-6xl md:text-[120px] leading-tight tracking-tight hero-title">BOOKED.</h1>
+                <h1 class="text-white font-sans font-extrabold text-6xl md:text-[120px] leading-tight tracking-tight hero-title">BOOKED.</h1>
                 <p class="max-w-3xl text-gray-100 mt-6">Tired of waiting in line or calling to reserve a table? With BOOKED. booking your favorite restaurant is faster and easier than ever. Choose your time, number of guests, and get instant confirmation—all in one place. Dining out has never been this simple!</p>
                 <a href="{{ route('reservation') }}" class="mt-8 inline-block bg-gold text-black font-semibold py-3 px-8 rounded-full shadow-lg hover:brightness-95">Reserve Now</a>
             </div>
@@ -130,35 +130,92 @@
             </div>
         </section>
 
-        <!-- FOOTER  -->
         <footer class="bg-black text-white py-12">
-            <div class="relative z-10 flex items-center">
+            <div class="container mx-auto px-8">
+                <div class="flex flex-col md:flex-row justify-between">
 
-                <!-- LEFT -->
-                <div class="w-full md:w-1/2 text-left pl-12">
-                    <h3 class="text-lg font-semibold mb-4">For questions and suggestions</h3>
-                    <p class="mb-2">
-                        <a href="mailto:booked@gmail.com" class="text-blue-400 hover:underline">booked@gmail.com</a>
-                    </p>
-                    <p>00 2334 3524 3453 22</p>
-                </div>
-
-                <!-- RIGHT -->
-                <div class="w-full md:w-1/3 mt-8 md:mt-0 text-right">
-                    <h3 class="text-lg font-semibold mb-4">More Info</h3>
-                    <div class="flex justify-end space-x-6 text-xl">
-                        <a href="#"> <img src="images/icon1.png" alt="icon1" class="w-6 h-6 hover:opacity-80"> </a>
-                        <a href="#"> <img src="images/icon2.png" alt="icon2" class="w-6 h-6 hover:opacity-80"> </a>
-                        <a href="#"> <img src="images/icon3.png" alt="icon3" class="w-6 h-6 hover:opacity-80"> </a>
+                    <!-- left -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-6">CONTACT US</h3>
+                        <ul class="space-y-4 text-gray-300 text-sm">
+                            <li class="flex items-start">
+                                <img src="/icons/location.png" alt="Location" class="w-5 h-5 mr-3 mt-1">
+                                <span>12/2 Plot No. 39, 15th Phase, Colony.<br>Kukatpally, Hyderabad</span>
+                            </li>
+                            <li class="flex items-center">
+                                <img src="/icons/email.png" alt="Email" class="w-5 h-5 mr-3">
+                                <span>booked@gmail.id</span>
+                            </li>
+                            <li class="flex items-center">
+                                <img src="/icons/phone.png" alt="Phone" class="w-5 h-5 mr-3">
+                                <span>00 2334 3524 3453 22</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="flex justify-end space-x-6 text-xl">
-                        <a href="#"> <img src="images/icon4.png" alt="icon3" class="w-6 h-6 hover:opacity-80"> </a>
-                        <a href="#"> <img src="images/icon5.png" alt="icon3" class="w-6 h-6 hover:opacity-80"> </a>
-                    </div>
-                </div>
 
+                    <!-- middle -->
+                    <div>
+                        <h3 class="text-lg font-bold mb-4 text-center">WORK HOURS</h3>
+                        <ul class="divide-y divide-gray-600">
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Monday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Tuesday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Wednesday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Thursday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Friday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Saturday</span>
+                                <span>8:00 AM – 11:00 PM</span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="w-80">Sunday</span>
+                                <span class="text-red-500">Closed</span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- right -->
+                    <div class="text-left">
+                        <h3 class="text-lg font-bold mb-4 whitespace-nowrap">CONNECT WITH US</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <img src="/icons/tiktok.png" alt="TikTok" class="w-5 h-5 mr-3">
+                                <span>booked.id</span>
+                            </li>
+                            <li class="flex items-center">
+                                <img src="/icons/x.png" alt="X" class="w-5 h-5 mr-3">
+                                <span>booked</span>
+                            </li>
+                            <li class="flex items-center">
+                                <img src="/icons/instagram.png" alt="Instagram" class="w-5 h-5 mr-3">
+                                <span>@booked.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
         </footer>
+
+
+
+
+
 
 
     </main>

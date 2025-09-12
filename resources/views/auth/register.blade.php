@@ -26,30 +26,30 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('register') }}" class="space-y-8">
+                <form method="POST" action="{{ route('register') }}" class="space-y-8" autocomplete="off">
                     @csrf
 
                     <div>
                         <label for="email" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Email</label>
-                        <input type="email" id="email" name="email" required
+                        <input type="email" id="email" name="email" required autocomplete="new-email"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
                         <label for="username" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Username</label>
-                        <input type="text" id="username" name="username" required
+                        <input type="text" id="username" name="username" required autocomplete="off"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
                         <label for="password" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Password</label>
-                        <input type="password" id="password" name="password" required
+                        <input type="password" id="password" name="password" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
                         <label for="password_confirmation" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Confirm Password</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" required
+                        <input type="password" id="password_confirmation" name="password_confirmation" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 

@@ -26,18 +26,18 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}" class="space-y-8">
+                <form method="POST" action="{{ route('login') }}" class="space-y-8" autocomplete="off">
                     @csrf
 
-                    <div?>
+                    <div>
                         <label for="email" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Email</label>
-                        <input type="email" id="email" name="email" required
+                        <input type="email" id="email" name="email" required autocomplete="new-email"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
                         <label for="password" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Password</label>
-                        <input type="password" id="password" name="password" required
+                        <input type="password" id="password" name="password" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
@@ -46,6 +46,7 @@
                         Sign In
                     </button>
                 </form>
+
             </div>
         </div>
 
