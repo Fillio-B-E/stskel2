@@ -1,5 +1,5 @@
-# Website BOOKED
-BOOKED is a website made for you convenience when you want to make a reservation at a restaurant. You can reserve tables and order food before going to the restaurant anywhere anytime.
+# Website BOOKED.
+BOOKED is a website made for you convenience when you want to make a reservation at a restaurant. You can reserve tables and order food before going to the restaurant anywhere anytime to save time when arriving and to eliminate the chance of not getting a table.
 
 
 # Installation
