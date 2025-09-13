@@ -67,3 +67,9 @@ git checkout main
 5. Confirm table reservation.
 6. (Optional) Order food or drinks to your liking.
 7. Finish!
+
+# Architecture
+1. Login page
+2. Register page
+3. Landing page
+4. (Soon to come)
