@@ -5,8 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        spartan: ['"League Spartan"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
 </head>
+
 
 <body class="h-screen w-screen font-serif">
     <div class="flex h-screen w-screen">
@@ -30,34 +46,46 @@
                     @csrf
 
                     <div>
-                        <label for="email" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Email</label>
+                        <label for="email" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase font-spartan">
+                            E m a i l
+                        </label>
                         <input type="email" id="email" name="email" required autocomplete="new-email"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
-                        <label for="username" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Username</label>
+                        <label for="username" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase font-spartan">
+                            U s e r n a m e
+                        </label>
                         <input type="text" id="username" name="username" required autocomplete="off"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
-                        <label for="password" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Password</label>
+                        <label for="password" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase font-spartan">
+                            P a s s w o r d
+                        </label>
                         <input type="password" id="password" name="password" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
-                        <label for="password_confirmation" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Confirm Password</label>
+                        <label for="password_confirmation"
+                            class="block text-xs text-gray-500 mb-2 uppercase font-spartan tracking-[0.3em]">
+                            C o n f i r m<span class="ml-6"></span>P a s s w o r d
+                        </label>
                         <input type="password" id="password_confirmation" name="password_confirmation" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
+
                     <button type="submit"
-                        class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 rounded-full">
+                        class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 rounded-full font-spartan">
                         Sign Up
                     </button>
                 </form>
+
+
             </div>
         </div>
 
@@ -69,13 +97,16 @@
 
             <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center text-white px-8">
                 <h2 class="text-3xl font-bold mb-3">One of us?</h2>
-                <p class="mb-6 text-sm">If you already have an account<br>just sign in. We missed you!</p>
+                <p class="mb-6 text-sm font-spartan">
+                    If you already have an account<br>just sign in. We missed you!
+                </p>
                 <a href="{{ route('login') }}"
                     class="border border-white px-8 py-2 rounded-full hover:bg-white hover:text-black transition">
                     Sign In
                 </a>
             </div>
         </div>
+
 
     </div>
 </body>

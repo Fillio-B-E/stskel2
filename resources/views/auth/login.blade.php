@@ -5,7 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <!-- Load League Spartan font -->
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind config to register font-spartan -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        spartan: ['"League Spartan"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
 </head>
 
 <body class="h-screen w-screen font-serif">
@@ -30,13 +48,19 @@
                     @csrf
 
                     <div>
-                        <label for="email" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Email</label>
+                        <label for="email"
+                            class="block text-xs text-gray-500 mb-2 uppercase font-spartan tracking-[0.3em]">
+                            E m a i l
+                        </label>
                         <input type="email" id="email" name="email" required autocomplete="new-email"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
 
                     <div>
-                        <label for="password" class="block text-xs tracking-widest text-gray-500 mb-2 uppercase">Password</label>
+                        <label for="password"
+                            class="block text-xs text-gray-500 mb-2 uppercase font-spartan tracking-[0.3em]">
+                            P a s s w o r d
+                        </label>
                         <input type="password" id="password" name="password" required autocomplete="new-password"
                             class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
                     </div>
@@ -58,7 +82,9 @@
 
             <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center text-white px-8">
                 <h2 class="text-3xl font-bold mb-3">New here?</h2>
-                <p class="mb-6 text-sm">Sign Up and discover a great<br>amount of opportunities!</p>
+                <p class="mb-6 text-sm font-spartan">
+                    Sign Up and discover a great<br>amount of opportunities!
+                </p>
                 <a href="{{ route('register') }}"
                     class="border border-white px-8 py-2 rounded-full hover:bg-white hover:text-black transition">
                     Sign Up
