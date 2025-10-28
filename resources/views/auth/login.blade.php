@@ -53,7 +53,7 @@
                             E m a i l
                         </label>
                         <input type="email" id="email" name="email" required autocomplete="new-email"
-                            class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center">
+                            class="w-full border-b border-gray-400 focus:outline-none py-2 text-lg font-medium text-center"> 
                     </div>
 
                     <div>
