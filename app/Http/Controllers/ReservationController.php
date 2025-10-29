@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    // Save reservation
+    
     public function store(Request $request)
 {
-    // Validate the input
+    
     $request->validate([
         'restaurant_name' => 'required|string',
         'name' => 'required|string|max:255',
@@ -20,7 +20,6 @@ class ReservationController extends Controller
         'time' => 'required',
     ]);
 
-    // Save to database (assuming you have a Reservation model)
     $reservation = \App\Models\Reservation::create([
         'restaurant_name' => $request->restaurant_name,
         'name' => $request->name,
@@ -29,12 +28,10 @@ class ReservationController extends Controller
         'time' => $request->time,
     ]);
 
-    // Redirect to menu page with restaurant name
     return redirect()->route('menu.show', ['restaurant' => $request->restaurant_name]);
 }
 
 
-    // Show user’s reservations
     public function index()
     {
         $reservations = Reservation::where('user_id', Auth::id())->latest()->get();

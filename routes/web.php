@@ -7,26 +7,26 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RestaurantController;
 
-// ========== MENU ==========
+//Menu
 Route::get('/menu/{restaurant}', [MenuController::class, 'show'])->name('menu.show');
 
-// ========== RESERVATION ==========
+//Reservation
 Route::post('/reserve', [ReservationController::class, 'store'])->name('reserve.store');
 Route::get('/schedule', [ReservationController::class, 'index'])->middleware('auth')->name('schedule');
 
-// ========== AUTH ==========
+//Auth
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ========== STATIC PAGES ==========
+//Static
 Route::view('/landing', 'landing');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::view('/reservation', 'reservation')->name('reservation');
 
-// ========== RESTAURANT DETAIL ==========
+//Restaurant_detail
 Route::get('/restaurant_detail/{id}', function ($id) {
     $restaurants = [
         ['id' => 1, 'name' => 'La Pergola', 'location' => 'Rome', 'images' => ['R1.png', 'R1a.jpg', 'R1b.jpg']],
@@ -50,3 +50,4 @@ Route::get('/restaurant_detail/{id}', function ($id) {
 
     return view('restaurant_detail', compact('restaurant'));
 })->name('restaurant_detail');
+

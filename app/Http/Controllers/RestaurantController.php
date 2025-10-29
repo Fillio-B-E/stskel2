@@ -8,7 +8,7 @@ class RestaurantController extends Controller
 {
     public function show($id)
     {
-        // Dummy data for testing — replace images later
+        
         $restaurants = [
             1 => [
                 'name' => 'La Pergola',
