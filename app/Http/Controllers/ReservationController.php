@@ -21,6 +21,7 @@ class ReservationController extends Controller
     ]);
 
     $reservation = \App\Models\Reservation::create([
+        'user_id'=> Auth::id(),
         'restaurant_name' => $request->restaurant_name,
         'name' => $request->name,
         'guests' => $request->guests,

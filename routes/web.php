@@ -11,20 +11,28 @@ use App\Http\Controllers\RestaurantController;
 Route::get('/menu/{restaurant}', [MenuController::class, 'show'])->name('menu.show');
 
 //Reservation
-Route::post('/reserve', [ReservationController::class, 'store'])->name('reserve.store');
-Route::get('/schedule', [ReservationController::class, 'index'])->middleware('auth')->name('schedule');
+Route::middleware(['auth'])->group(function () {
+    Route::post('/reserve', [ReservationController::class, 'store'])->name('reserve.store'); //
+    Route::get('/schedule', [ReservationController::class, 'index'])->name('schedule');
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
+});
+
+Route::middleware(['auth', 'checkByRole:admin'])->group(function () {
+
+    Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard');
+
+});
 
 //Auth
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 //Static
 Route::view('/landing', 'landing');
-Route::view('/dashboard', 'dashboard')->name('dashboard');
+
 Route::view('/reservation', 'reservation')->name('reservation');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //Restaurant_detail
 Route::get('/restaurant_detail/{id}', function ($id) {
@@ -50,4 +58,3 @@ Route::get('/restaurant_detail/{id}', function ($id) {
 
     return view('restaurant_detail', compact('restaurant'));
 })->name('restaurant_detail');
-

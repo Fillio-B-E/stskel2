@@ -144,26 +144,9 @@ $restaurant = [
                     Book a Table
                 </button>
 
-
-                <!-- <div id="orderPopup"
-                    class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-                    <div class="bg-yellow-500 rounded-xl p-6 shadow-xl text-center w-[350px]">
-                        <h2 class="text-2xl font-bold text-white mb-2">Hungry?</h2>
-                        <p class="text-white mb-5 text-sm">Would you like to order your food now?</p>
-                        <div class="flex justify-center gap-4">
-                            <button id="orderNowBtn"
-                                class="bg-black text-white font-semibold px-5 py-2 rounded-md hover:bg-gray-800 transition">
-                                Order Now
-                            </button>
-                            <button id="maybeLaterBtn"
-                                class="bg-white text-gray-800 font-semibold px-5 py-2 rounded-md hover:bg-gray-100 transition">
-                                Maybe Later
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-
             </form>
+
+            
             <!-- Popup (put this after the form) -->
             <div id="orderPopup" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                 <div class="bg-yellow-500 rounded-xl p-6 shadow-xl text-center w-[360px]">

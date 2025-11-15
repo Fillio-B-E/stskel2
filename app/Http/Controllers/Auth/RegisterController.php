@@ -35,6 +35,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            'role' => 'user', // or admin
+
         ]);
 
         // Log the user in immediately after registration
