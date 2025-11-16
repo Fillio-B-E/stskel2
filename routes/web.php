@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\AdminReservationController;
 
 //Menu
 Route::get('/menu/{restaurant}', [MenuController::class, 'show'])->name('menu.show');
@@ -18,8 +19,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'checkByRole:admin'])->group(function () {
+    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])
+        ->name('admin.dashboard');
 
-    Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard');
+    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::post('/reservation/accept/{id}', [AdminReservationController::class, 'accept'])
+        ->name('reservation.accept');
+
+    Route::post('/reservation/deny/{id}', [AdminReservationController::class, 'deny'])
+        ->name('reservation.deny');
+
+    Route::get('/reservation/{id}', [AdminReservationController::class, 'show'])
+        ->name('reservation.show');
+});
 
 });
 

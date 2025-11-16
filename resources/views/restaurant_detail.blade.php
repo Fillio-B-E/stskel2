@@ -1,5 +1,5 @@
 @php
-// Example dummy data (replace these .png with your own)
+// Example dummy data
 $restaurant = [
 'name' => 'Le Bernardin',
 'images' => [
@@ -101,7 +101,7 @@ $restaurant = [
         <aside class="bg-black text-yellow-500 rounded-3xl p-8 md:w-1/3 flex flex-col justify-start">
             <h3 class="text-2xl font-bold text-white font-spartan mb-6 text-center">Find a Table</h3>
 
-            <form action="{{ route('reserve.store') }}" method="POST" class="flex flex-col gap-4">
+            <form id="reserveForm" action="{{ route('reserve.store') }}" method="POST" class="flex flex-col gap-4">
                 @csrf
                 <input type="hidden" name="restaurant_name" value="{{ $restaurant['name'] }}">
 
@@ -138,16 +138,14 @@ $restaurant = [
                         required>
                 </div>
 
-
+                <!-- IMPORTANT: changed to type="button" -->
                 <button id="bookBtn" type="button"
                     class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2.5 rounded-md font-semibold transition">
                     Book a Table
                 </button>
-
             </form>
 
-            
-            <!-- Popup (put this after the form) -->
+            <!-- Popup -->
             <div id="orderPopup" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                 <div class="bg-yellow-500 rounded-xl p-6 shadow-xl text-center w-[360px]">
                     <h2 class="text-2xl font-bold text-white mb-2">Hungry?</h2>
@@ -167,35 +165,92 @@ $restaurant = [
 
             <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                    const bookBtn = document.getElementById("bookBtn"); // your 'Book a Table' button (type=button)
+                    const bookBtn = document.getElementById("bookBtn");
                     const popup = document.getElementById("orderPopup");
                     const orderNowBtn = document.getElementById("orderNowBtn");
                     const maybeLaterBtn = document.getElementById("maybeLaterBtn");
+                    const form = document.getElementById("reserveForm");
 
-                    // show popup when clicking Book a Table
+                    // submission guard
+                    let submitting = false;
+
+                    // open popup (do not submit)
                     bookBtn.addEventListener("click", (e) => {
-                        e.preventDefault(); // keep form from submitting immediately
+                        e.preventDefault();
                         popup.classList.remove("hidden");
                     });
 
-                    // Order Now -> go to menu.show for this restaurant
-                    orderNowBtn.addEventListener("click", () => {
-                        // uses Laravel route helper to generate the correct URL for menu.show
-                        window.location.href = "{{ route('menu.show', ['restaurant' => $restaurant['name']]) }}";
+                    // helper to send form via fetch once
+                    function submitReservation(callbackUrl) {
+                        if (submitting) return; // already submitting — ignore
+                        submitting = true;
+
+                        // disable buttons to give immediate feedback
+                        orderNowBtn.disabled = true;
+                        maybeLaterBtn.disabled = true;
+                        orderNowBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                        maybeLaterBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+                        const formData = new FormData(form);
+
+                        fetch(form.action, {
+                                method: "POST",
+                                headers: {
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                },
+                                body: formData,
+                                credentials: 'same-origin',
+                            })
+                            .then(response => {
+                                // expect JSON or 200/201 status; adapt if your store returns redirect
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.json().catch(() => ({})); // ignore parse errors
+                            })
+                            .then(data => {
+                                // hide popup immediately to avoid double-clicks after redirect
+                                popup.classList.add("hidden");
+
+                                // navigate to callbackUrl (if provided)
+                                if (callbackUrl) {
+                                    window.location.href = callbackUrl;
+                                } else {
+                                    // fallback: reload so UI updates
+                                    window.location.reload();
+                                }
+                            })
+                            .catch(err => {
+                                console.error('Reservation failed', err);
+                                alert('Reservation failed. Please try again.');
+                                // re-enable buttons if it failed
+                                submitting = false;
+                                orderNowBtn.disabled = false;
+                                maybeLaterBtn.disabled = false;
+                                orderNowBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                                maybeLaterBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                            });
+                    }
+
+                    // Order Now -> submit and go to menu.show
+                    orderNowBtn.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        submitReservation("{{ route('menu.show', ['restaurant' => $restaurant['name']]) }}");
                     });
 
-                    // Maybe Later -> go to the Top Restaurants / Reservation listing page
-                    maybeLaterBtn.addEventListener("click", () => {
-                        // use a hard url helper to be safe (will always point to /reservation)
-                        window.location.href = "{{ url('/reservation') }}";
+                    // Maybe Later -> submit and go to reservation listing
+                    maybeLaterBtn.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        submitReservation("{{ url('/reservation') }}");
                     });
 
-                    // Optional: clicking outside the popup closes it
+                    // clicking outside popup closes it
                     popup.addEventListener("click", (e) => {
                         if (e.target === popup) popup.classList.add("hidden");
                     });
                 });
             </script>
+
 
         </aside>
     </main>
@@ -215,7 +270,7 @@ $restaurant = [
         });
     </script>
 
-    
+
 
 </body>
 

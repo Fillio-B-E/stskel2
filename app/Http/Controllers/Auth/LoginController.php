@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class LoginController extends Controller
 {
@@ -26,11 +25,12 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if(Auth::user()->role=='admin'){
-                return redirect('/admin/dashboard');
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin.dashboard');
             }
             return redirect('/landing');
         }
+
 
         return back()->withErrors([
             'email' => 'The email or password you entered is incorrect.',
