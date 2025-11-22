@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    public function show($restaurant)
+    public function show($restaurantId)
     {
-        // You can add real menu data later — for now, fake it
+        $restaurant = Restaurant::findOrFail($restaurantId);
+
         $menus = [
             [
                 'name' => "Soupe à l’oignon",

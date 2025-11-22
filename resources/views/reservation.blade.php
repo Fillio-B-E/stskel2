@@ -55,21 +55,31 @@
             <!-- Profile -->
             <div class="flex items-center space-x-3">
                 @auth
+
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="flex items-center space-x-2 text-red-500 font-semibold hover:text-red-700 transition">
+
+                    <!-- Replace this image later -->
+                    <img src="{{ asset('icons/Headerlogout.png') }}" class="w-5 h-5" alt="Logout">
+
+                    <span>Logout</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                @csrf
+                </form>
+
                 <span class="font-medium text-gray-700">{{ Auth::user()->username }}</span>
                 @endauth
-                <img src="../images/avatar.png" alt="Profile" class="w-10 h-10 rounded-full border-2 border-gray-200">
             </div>
         </div>
     </header>
 
-    <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-8 py-12">
 
         <h1 class="text-4xl font-bold font-spartan mb-10">Top Restaurants</h1>
 
-        <!-- Grid -->
         <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-
 
             <!-- Card -->
             @php
@@ -82,10 +92,6 @@
             ['id' => 6, 'name' => 'Pappas Steakhouse', 'location' => 'America', 'image' => '../images/R6.png'],
             ['id' => 7, 'name' => 'Geronimo', 'location' => 'America', 'image' => '../images/R7.png'],
             ['id' => 8, 'name' => 'Din Tai Fung', 'location' => 'Taiwan', 'image' => '../images/R8.png'],
-            ['id' => 9, 'name' => 'Hard Rock Cafe', 'location' => 'Bali', 'image' => '../images/R9.png'],
-            ['id' => 10, 'name' => 'Le Meurice', 'location' => 'Paris', 'image' => '../images/R10.png'],
-            ['id' => 11, 'name' => 'Sukiyabashi Jiro', 'location' => 'Tokyo', 'image' => '../images/R11.png'],
-            ['id' => 12, 'name' => 'Narisawa', 'location' => 'Tokyo', 'image' => '../images/R12.png'],
             ];
             @endphp
 
@@ -97,7 +103,6 @@
                     <!-- Restaurant Image -->
                     <img src="{{ asset($res['image']) }}" alt="{{ $res['name'] }}" class="h-52 w-full object-cover">
 
-                    <!-- Favorite Button (heart toggle) -->
                     <button class="heart-toggle absolute top-3 right-3 z-10" data-id="{{ $loop->index }}"
                         onclick="event.preventDefault(); event.stopPropagation();">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -111,9 +116,7 @@
                         </svg>
                     </button>
 
-                    <!-- Info Section -->
                     <div class="p-4 flex flex-col gap-2">
-                        <!-- Name + Stars inline -->
                         <div class="flex items-center justify-between">
                             <h3 class="text-lg font-semibold text-gray-800">{{ $res['name'] }}</h3>
                             <div class="flex items-center gap-1 text-yellow-500 border border-yellow-400 rounded-full px-2 py-0.5 text-sm font-medium">
@@ -124,7 +127,6 @@
                             </div>
                         </div>
 
-                        <!-- Location -->
                         <p class="text-gray-500 text-sm">{{ $res['location'] }}</p>
                     </div>
                 </div>
@@ -137,7 +139,7 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
+
     <footer class="bg-black text-white mt-16 py-10 text-center">
         <p class="text-gray-400 text-sm">&copy; {{ date('Y') }} BOOKED. All rights reserved.</p>
     </footer>
@@ -148,7 +150,7 @@
             const hearts = document.querySelectorAll(".heart-toggle");
             let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-            // Restore previously favorited items
+
             hearts.forEach(btn => {
                 const id = btn.dataset.id;
                 const svg = btn.querySelector("svg");
@@ -157,7 +159,7 @@
                 }
             });
 
-            // Toggle favorite on click
+
             hearts.forEach(btn => {
                 btn.addEventListener("click", () => {
                     const id = btn.dataset.id;

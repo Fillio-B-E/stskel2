@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="nav-item mb-1">
-                    <a href="{{ url('/admin/restaurant') }}" class="{{ request()->is('admin/restaurant*') ? 'active' : '' }}">
+                    <a href="{{ url('/admin/restaurants') }}" class="{{ request()->is('admin/restaurants*') ? 'active' : '' }}">
                         <img class="icon-img" src="/icons/RSIDEBAR.png" alt="icon">
                         <span>Restaurant</span>
                     </a>

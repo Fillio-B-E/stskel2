@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ $restaurant }} — Discover the Menu</title>
+    <title>{{ $restaurant['name'] }} — Discover the Menu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
         <!-- <div class="absolute inset-0 bg-black bg-opacity-60"></div> -->
         <div class="relative z-10">
             <h1 class="text-5xl font-playfair text-white mb-3">Discover the Menu</h1>
-            <p class="text-yellow-400 italic text-xl">{{ $restaurant }}</p>
+            <p class="text-yellow-400 italic text-xl">{{ $restaurant['name'] }}</p>
         </div>
     </section>
 
@@ -54,7 +54,7 @@
             class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
             <img src="../images/iconAppetizer.png" alt="Appetizers Icon" class="w-5 h-5">Appetizers
         </button>
-        <button data-filter="main"
+        <!-- <button data-filter="main"
             class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
             <img src="../images/iconMaincourse.png" alt="Main Courses Icon" class="w-5 h-5">Main Courses
         </button>
@@ -69,7 +69,7 @@
         <button data-filter="beverages"
             class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
             <img src="../images/iconBeverages.png" alt="Beverages Icon" class="w-5 h-5">Beverages
-        </button>
+        </button> -->
 
         <button
             class="flex items-center gap-2 bg-yellow-200 text-yellow-700 font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-300 transition ml-auto">

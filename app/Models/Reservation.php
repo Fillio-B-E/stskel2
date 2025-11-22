@@ -11,14 +11,20 @@ class Reservation extends Model
 
     protected $fillable = [
         'user_id',
-        'restaurant_name',
+        'restaurant_id',
         'name',
         'guests',
         'date',
         'time',
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id');
     }
 }

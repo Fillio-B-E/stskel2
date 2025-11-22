@@ -26,7 +26,8 @@ class AdminReservationController extends Controller
 
     public function show($id)
     {
-        $reservation = Reservation::with('user')->findOrFail($id);
+        $reservation = Reservation::with(['user', 'restaurant'])
+            ->findOrFail($id);
 
         return view('admin.reservations.show', compact('reservation'));
     }

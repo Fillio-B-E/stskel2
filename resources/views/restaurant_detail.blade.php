@@ -1,14 +1,10 @@
 @php
-// Example dummy data
-$restaurant = [
-'name' => 'Le Bernardin',
-'images' => [
-'../images/R4.png',
-'../images/SIDE1.png',
-'../images/SIDE2.png',
-'../images/SIDE3.png',
-'../images/SIDE4.png',
-],
+$restaurantImages = [
+    '../images/R4.png',
+    '../images/SIDE1.png',
+    '../images/SIDE2.png',
+    '../images/SIDE3.png',
+    '../images/SIDE4.png',
 ];
 @endphp
 
@@ -80,12 +76,12 @@ $restaurant = [
             <div class="flex flex-col space-y-2">
 
                 <img id="mainImage"
-                    src="{{ $restaurant['images'][0] }}"
+                    src="{{ $restaurantImages[0] }}"
                     class="mainImage w-full h-[360px] object-cover rounded-xl"
                     alt="Main Restaurant Image">
 
                 <div class="grid grid-cols-4 gap-2">
-                    @foreach (array_slice($restaurant['images'], 1, 4) as $img)
+                    @foreach (array_slice($restaurantImages, 1, 4) as $img)
                     <img src="{{ $img }}"
                         class="thumb rounded-xl cursor-pointer hover:opacity-80 transition object-cover h-24 w-full"
                         alt="Supporting Image">
@@ -103,7 +99,7 @@ $restaurant = [
 
             <form id="reserveForm" action="{{ route('reserve.store') }}" method="POST" class="flex flex-col gap-4">
                 @csrf
-                <input type="hidden" name="restaurant_name" value="{{ $restaurant['name'] }}">
+                <input type="hidden" name="restaurant_id" value="{{ $restaurant['id'] }}">
 
                 <div>
                     <label class="block text-yellow-500 mb-2">Name</label>
@@ -235,7 +231,7 @@ $restaurant = [
                     // Order Now -> submit and go to menu.show
                     orderNowBtn.addEventListener("click", (e) => {
                         e.preventDefault();
-                        submitReservation("{{ route('menu.show', ['restaurant' => $restaurant['name']]) }}");
+                        submitReservation("{{ route('menu.show', ['restaurant' => $restaurant['id']]) }}");
                     });
 
                     // Maybe Later -> submit and go to reservation listing

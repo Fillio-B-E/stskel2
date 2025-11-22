@@ -7,6 +7,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\AdminReservationController;
+use App\Http\Controllers\RestaurantAdminDetailController;
+use App\Http\Controllers\AdminRestaurantController;
 
 //Menu
 Route::get('/menu/{restaurant}', [MenuController::class, 'show'])->name('menu.show');
@@ -18,11 +20,12 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 });
 
-Route::middleware(['auth', 'checkByRole:admin'])->group(function () {
-    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])
-        ->name('admin.dashboard');
+Route::middleware(['auth', 'checkByRole:admin'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])
+        ->name('dashboard');
+
+    // Reservation actions
     Route::post('/reservation/accept/{id}', [AdminReservationController::class, 'accept'])
         ->name('reservation.accept');
 
@@ -31,9 +34,15 @@ Route::middleware(['auth', 'checkByRole:admin'])->group(function () {
 
     Route::get('/reservation/{id}', [AdminReservationController::class, 'show'])
         ->name('reservation.show');
+
+    // Admin restaurant CRUD (THE ONLY CORRECT ONE)
+    // Route::resource('restaurants', AdminRestaurantController::class);
+    Route::resource('restaurants', RestaurantAdminDetailController::class);
+    // Route::resource('restaurants', RestaurantController::class);
+    Route::get('/admin/restaurants/{id}/edit', [RestaurantController::class, 'edit'])
+        ->name('admin.restaurants.edit');
 });
 
-});
 
 //Auth
 Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
@@ -68,5 +77,5 @@ Route::get('/restaurant_detail/{id}', function ($id) {
 
     $restaurant['images'] = array_map(fn($f) => asset("images/{$f}"), $restaurant['images']);
 
-    return view('restaurant_detail', compact('restaurant'));
+    return view('restaurant_detail', compact('restaurants'));
 })->name('restaurant_detail');

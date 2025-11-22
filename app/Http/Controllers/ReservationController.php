@@ -12,7 +12,7 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'restaurant_name' => 'required|string',
+            'restaurant_id' => 'required|integer|exists:restaurants,id',
             'name' => 'required|string|max:255',
             'guests' => 'required|integer',
             'date' => 'required|date',
@@ -21,16 +21,15 @@ class ReservationController extends Controller
 
         $userId = Auth::id();
 
-        // Normalize values for matching (trim, etc.)
-        $restaurant = trim($request->restaurant_name);
+        $restaurantId = (int) $request->restaurant_id;
         $name = trim($request->name);
         $date = $request->date;
         $time = $request->time;
         $guests = (int) $request->guests;
 
-        // Check if an identical reservation already exists (within same user)
+        // Check if an identical reservation already exists (same user)
         $exists = Reservation::where('user_id', $userId)
-            ->where('restaurant_name', $restaurant)
+            ->where('restaurant_id', $restaurantId)
             ->where('name', $name)
             ->where('date', $date)
             ->where('time', $time)
@@ -38,16 +37,15 @@ class ReservationController extends Controller
             ->exists();
 
         if ($exists) {
-            // Return JSON for AJAX or a redirect for non-AJAX
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Duplicate reservation ignored'], 200);
             }
-            return redirect()->back()->with('info', 'You already have this reservation.');
+            return redirect()->back()->with('info', 'You already made this reservation.');
         }
 
         $reservation = Reservation::create([
             'user_id' => $userId,
-            'restaurant_name' => $restaurant,
+            'restaurant_id' => $restaurantId,
             'name' => $name,
             'guests' => $guests,
             'date' => $date,
@@ -58,8 +56,10 @@ class ReservationController extends Controller
             return response()->json(['id' => $reservation->id], 201);
         }
 
-        return redirect()->route('menu.show', ['restaurant' => $restaurant]);
+        // redirect back to restaurant page using ID
+        return redirect()->route('menu.show', ['restaurant' => $restaurantId]);
     }
+
 
 
 

@@ -8,7 +8,7 @@ class RestaurantController extends Controller
 {
     public function show($id)
     {
-        
+
         $restaurants = [
             1 => [
                 'name' => 'La Pergola',
@@ -37,7 +37,10 @@ class RestaurantController extends Controller
         }
 
         $restaurant = $restaurants[$id];
+        $restaurant['id'] = $id;
 
         return view('restaurant_detail', compact('restaurant'));
     }
+
+    
 }
