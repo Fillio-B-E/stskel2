@@ -13,7 +13,6 @@ return new class extends Migration
             $table->foreignId('restaurant_id')->constrained('restaurants')->onDelete('cascade');
             $table->string('location');
             $table->string('image_main')->nullable();
-            $table->json('gallery')->nullable();
             $table->timestamps();
         });
     }

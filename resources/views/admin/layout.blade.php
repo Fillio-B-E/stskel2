@@ -42,7 +42,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
+
+
 
         .brand {
             font-weight: 800;
@@ -190,6 +197,26 @@
                 padding: 18px;
             }
         }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #333;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .logout-link:hover {
+            color: #000;
+        }
     </style>
 </head>
 
@@ -233,15 +260,16 @@
 
                 <div class="sidebar-divider"></div>
 
-                <div class="nav-item mt-2">
-                    <form method="POST" action="{{ route('logout') }}">
+                <div class="nav-item mt-2 w-100">
+                    <form method="POST" action="{{ route('logout') }}" class="w-100">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 text-decoration-none text-dark fw-bold">
+                        <button type="submit" class="logout-link">
                             <img class="icon-img" src="/icons/LSIDEBAR.png" alt="icon">
-                            Log out
+                            <span>Log out</span>
                         </button>
                     </form>
                 </div>
+
 
             </nav>
         </aside>

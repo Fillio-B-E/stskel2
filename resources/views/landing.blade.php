@@ -26,7 +26,7 @@
             }
         }
     </script>
-    
+
     <style>
         .font-times {
             font-family: "Times New Roman", Times, serif;
@@ -57,14 +57,23 @@
             </div>
 
 
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 font-medium">
                 @auth
-                <span class="text-white font-medium">
-                    {{ Auth::user()->username }}
-                </span>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="flex items-center space-x-2 text-red-500 hover:text-red-700 transition">
+                    <img src="{{ asset('icons/Headerlogout.png') }}" class="w-5 h-5" alt="Logout">
+                    <span>Logout</span>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+
+                <span class="text-white">{{ Auth::user()->username }}</span>
                 @endauth
-                <img src="../images/avatar.png" alt="profile" class="w-10 h-10 rounded-full border-2 border-white">
             </div>
+
         </nav>
     </header>
 

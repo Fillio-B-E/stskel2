@@ -38,87 +38,98 @@
 <body class="bg-gray-50 font-sans antialiased">
 
     <!-- HEADER -->
+    <!-- Header: matches landing typography & sizes (no serif on links) -->
     <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="{{ url('/') }}" class="text-2xl font-extrabold tracking-tight font-spartan text-gray-800">
+
+            <!-- Logo: same size/weight as landing -->
+            <a href="{{ url('/') }}" class="text-2xl font-bold tracking-wide font-spartan text-gray-800">
                 BOOKED.
             </a>
 
-            <nav class="hidden md:flex space-x-10 font-medium">
-                <a href="{{ url('/landing') }}" class="hover:text-yellow-600 transition">About</a>
-                <a href="{{ route('reservation') }}" class="text-gold font-semibold">Reservation</a>
-                <a href="#" class="hover:text-yellow-600 transition">Schedule</a>
-                <a href="#" class="hover:text-yellow-600 transition">Contact</a>
+            <!-- Nav: force font-spartan (no serif), same spacing + size as landing -->
+            <nav class="hidden md:flex items-center">
+                <ul class="flex space-x-10 items-center">
+                    <li>
+                        <a href="{{ url('/landing') }}"
+                            class="font-spartan text-lg font-medium text-gray-800 hover:text-yellow-600 transition">
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('reservation') }}"
+                            class="font-spartan text-lg font-semibold text-gold">
+                            Reservation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="font-spartan text-lg font-medium text-gray-800 hover:text-yellow-600 transition">
+                            Schedule
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="font-spartan text-lg font-medium text-gray-800 hover:text-yellow-600 transition">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
             </nav>
 
-            <!-- Profile -->
+            <!-- Right: auth (username in black, no background) -->
             <div class="flex items-center space-x-3">
                 @auth
-
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                     class="flex items-center space-x-2 text-red-500 font-semibold hover:text-red-700 transition">
-
-                    <!-- Replace this image later -->
                     <img src="{{ asset('icons/Headerlogout.png') }}" class="w-5 h-5" alt="Logout">
-
                     <span>Logout</span>
                 </a>
+
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                @csrf
+                    @csrf
                 </form>
 
-                <span class="font-medium text-gray-700">{{ Auth::user()->username }}</span>
+                <span class="font-spartan text-base font-medium text-gray-800">
+                    {{ Auth::user()->username }}
+                </span>
                 @endauth
             </div>
+
         </div>
     </header>
 
+
+
+
+    <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-8 py-12">
 
         <h1 class="text-4xl font-bold font-spartan mb-10">Top Restaurants</h1>
 
         <div class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
 
-            <!-- Card -->
+            @foreach ($restaurants as $res)
             @php
-            $restaurants = [
-            ['id' => 1, 'name' => 'La Pergola', 'location' => 'Rome', 'image' => '../images/R1.png'],
-            ['id' => 2, 'name' => 'Commonwealth', 'location' => 'Virginia', 'image' => '../images/R2.png'],
-            ['id' => 3, 'name' => 'Osteria Francescana', 'location' => 'Italy', 'image' => '../images/R3.png'],
-            ['id' => 4, 'name' => 'Le Bernardin', 'location' => 'France', 'image' => '../images/R4.png'],
-            ['id' => 5, 'name' => 'Eleven Madison Park', 'location' => 'New York City', 'image' => '../images/R5.png'],
-            ['id' => 6, 'name' => 'Pappas Steakhouse', 'location' => 'America', 'image' => '../images/R6.png'],
-            ['id' => 7, 'name' => 'Geronimo', 'location' => 'America', 'image' => '../images/R7.png'],
-            ['id' => 8, 'name' => 'Din Tai Fung', 'location' => 'Taiwan', 'image' => '../images/R8.png'],
-            ];
+            $details = $res->adminDetails;
+            $image = $details && $details->image_main
+            ? asset($details->image_main)
+            : asset("images/restaurants/R{$res->id}.png"); // fallback
             @endphp
 
-
-            @foreach ($restaurants as $res)
-            <a href="{{ route('restaurant_detail', ['id' => $res['id']]) }}" class="block">
-
+            <a href="{{ route('restaurant_detail', ['id' => $res->id]) }}" class="block">
                 <div class="relative group bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300">
-                    <!-- Restaurant Image -->
-                    <img src="{{ asset($res['image']) }}" alt="{{ $res['name'] }}" class="h-52 w-full object-cover">
 
-                    <button class="heart-toggle absolute top-3 right-3 z-10" data-id="{{ $loop->index }}"
-                        onclick="event.preventDefault(); event.stopPropagation();">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            class="w-6 h-6 text-red-500 transition">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
-                        </svg>
-                    </button>
+                    <!-- IMAGE -->
+                    <img src="{{ $image }}" alt="{{ $res->name }}" class="h-52 w-full object-cover">
 
                     <div class="p-4 flex flex-col gap-2">
                         <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-semibold text-gray-800">{{ $res['name'] }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-800">
+                                {{ $res->name }}
+                            </h3>
+
                             <div class="flex items-center gap-1 text-yellow-500 border border-yellow-400 rounded-full px-2 py-0.5 text-sm font-medium">
                                 <span>5</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4">
@@ -127,59 +138,20 @@
                             </div>
                         </div>
 
-                        <p class="text-gray-500 text-sm">{{ $res['location'] }}</p>
+                        <p class="text-gray-500 text-sm">
+                            {{ $details->location ?? 'Unknown Location' }}
+                        </p>
                     </div>
                 </div>
             </a>
+
             @endforeach
-
-
-
-
         </div>
     </main>
-
 
     <footer class="bg-black text-white mt-16 py-10 text-center">
         <p class="text-gray-400 text-sm">&copy; {{ date('Y') }} BOOKED. All rights reserved.</p>
     </footer>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const hearts = document.querySelectorAll(".heart-toggle");
-            let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-
-            hearts.forEach(btn => {
-                const id = btn.dataset.id;
-                const svg = btn.querySelector("svg");
-                if (favorites.includes(id)) {
-                    svg.setAttribute("fill", "red");
-                }
-            });
-
-
-            hearts.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const id = btn.dataset.id;
-                    const svg = btn.querySelector("svg");
-                    const index = favorites.indexOf(id);
-
-                    if (index === -1) {
-                        favorites.push(id);
-                        svg.setAttribute("fill", "red");
-                    } else {
-                        favorites.splice(index, 1);
-                        svg.setAttribute("fill", "none");
-                    }
-
-                    localStorage.setItem("favorites", JSON.stringify(favorites));
-                });
-            });
-        });
-    </script>
-
 
 </body>
 

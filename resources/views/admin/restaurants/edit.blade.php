@@ -18,18 +18,18 @@
         @csrf
         @method('PUT')
 
-        {{-- CURRENT IMAGE PREVIEW --}}
+        {{-- CURRENT IMAGE --}}
         <div class="mb-4 row align-items-start">
             <label class="col-sm-3 col-form-label fw-semibold">Current Image</label>
 
             <div class="col-sm-6">
-                <img src="{{ asset('storage/' . $detail->image_main) }}"
+                <img src="{{ asset($detail->image_main) }}"
                     class="rounded shadow mb-3"
-                    style="width: 230px; height: auto;">
+                    style="width: 230px;">
             </div>
         </div>
 
-        {{-- REPLACE IMAGE --}}
+        {{-- NEW IMAGE --}}
         <div class="mb-4 row align-items-center">
             <label class="col-sm-3 col-form-label fw-semibold">Replace Image</label>
 
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        {{-- RESTAURANT NAME --}}
+        {{-- NAME --}}
         <div class="mb-4 row align-items-center">
             <label class="col-sm-3 col-form-label fw-semibold">Restaurant Name</label>
 
@@ -66,7 +66,6 @@
 
         {{-- BUTTONS --}}
         <div class="mt-5 d-flex gap-3">
-
             <a href="{{ route('admin.restaurants.index') }}"
                 class="btn py-3 px-5 fw-bold text-white"
                 style="background: #d9534f; width: 200px;">
@@ -78,19 +77,10 @@
                 style="background: #5cb85c; width: 200px;">
                 Update
             </button>
-
         </div>
 
     </form>
-    @if ($errors->any())
-    <div class="alert alert-danger mb-3">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $err)
-            <li>{{ $err }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+
 </div>
 
 @endsection

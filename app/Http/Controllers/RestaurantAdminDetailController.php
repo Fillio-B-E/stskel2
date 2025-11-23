@@ -8,50 +8,42 @@ use Illuminate\Http\Request;
 
 class RestaurantAdminDetailController extends Controller
 {
+    // Show list of restaurants for admin
     public function index()
     {
         $details = RestaurantAdminDetails::with('restaurant')->get();
         return view('admin.restaurants.index', compact('details'));
     }
 
+    // Show create form
     public function create()
     {
-        $restaurants = Restaurant::all();
-        return view('admin.restaurants.create', compact('restaurants'));
+        return view('admin.restaurants.create');
     }
 
+    // Store new restaurant + admin details
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required|string',
-            'location'    => 'required|string',
-            'image_main'  => 'nullable|image',
+            'name'       => 'required|string|max:255',
+            'location'   => 'required|string|max:255',
+            'image_main' => 'nullable|image',
         ]);
 
-        // Create restaurant
+        // 1️⃣ Create the restaurant
         $restaurant = Restaurant::create([
             'name' => $request->name,
         ]);
 
+        // 2️⃣ Handle main image upload if exists
         $mainImagePath = null;
         if ($request->hasFile('image_main')) {
-
-            // Force filename to match "R{id}.png"
             $filename = 'R' . $restaurant->id . '.png';
-
-            // Save into public/images/restaurants/
-            $request->file('image_main')->move(
-                public_path('images/restaurants'),
-                $filename
-            );
-
-            // Save only filename (optional)
+            $request->file('image_main')->move(public_path('images/restaurants'), $filename);
             $mainImagePath = 'images/restaurants/' . $filename;
         }
 
-
-
-        // Create restaurant details (DO NOT use $request->all())
+        // 3️⃣ Create restaurant admin details
         RestaurantAdminDetails::create([
             'restaurant_id' => $restaurant->id,
             'location'      => $request->location,
@@ -63,37 +55,37 @@ class RestaurantAdminDetailController extends Controller
             ->with('success', 'Restaurant created successfully!');
     }
 
-
+    // Show edit form
     public function edit($id)
     {
         $detail = RestaurantAdminDetails::findOrFail($id);
-        $restaurants = Restaurant::all();
-
-        return view('admin.restaurants.edit', compact('detail', 'restaurants'));
+        return view('admin.restaurants.edit', compact('detail'));
     }
 
+    // Update restaurant + admin details
     public function update(Request $request, $id)
     {
         $request->validate([
-            'location' => 'required',
+            'name'       => 'required|string|max:255',
+            'location'   => 'required|string|max:255',
             'image_main' => 'nullable|image',
-            'name' => 'required',
         ]);
 
         $detail = RestaurantAdminDetails::with('restaurant')->findOrFail($id);
 
-        // UPDATE NAME
+        // Update restaurant name
         $detail->restaurant->update([
             'name' => $request->name,
         ]);
 
-        // UPDATE IMAGE
+        // Update main image if uploaded
         if ($request->hasFile('image_main')) {
-            $imagePath = $request->file('image_main')->store('restaurants/main', 'public');
-            $detail->image_main = $imagePath;
+            $filename = 'R' . $detail->restaurant->id . '.png';
+            $request->file('image_main')->move(public_path('images/restaurants'), $filename);
+            $detail->image_main = 'images/restaurants/' . $filename;
         }
 
-        // UPDATE LOCATION
+        // Update location
         $detail->location = $request->location;
         $detail->save();
 
@@ -102,13 +94,26 @@ class RestaurantAdminDetailController extends Controller
             ->with('success', 'Restaurant updated successfully!');
     }
 
-
-
+    // Delete admin detail (optionally the restaurant too)
     public function destroy($id)
     {
-        RestaurantAdminDetails::findOrFail($id)->delete();
+        $detail = RestaurantAdminDetails::findOrFail($id);
 
-        return redirect()->route('admin.restaurants.index')
-            ->with('success', 'Restaurant detail deleted!');
+        // First delete the image if exists
+        if ($detail->image_main && file_exists(public_path($detail->image_main))) {
+            unlink(public_path($detail->image_main));
+        }
+
+        // Delete the restaurant (parent)
+        if ($detail->restaurant) {
+            $detail->restaurant->delete();
+        }
+
+        // Delete the admin detail (child)
+        $detail->delete();
+
+        return redirect()
+            ->route('admin.restaurants.index')
+            ->with('success', 'Restaurant and details deleted successfully!');
     }
 }

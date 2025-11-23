@@ -9,7 +9,6 @@
     <div class="page-title">Restaurant List</div>
     <div class="page-sub"></div>
 
-    {{-- Top Stat Box --}}
     <div class="table-panel d-flex align-items-center justify-content-between mb-4">
 
         <div class="d-flex flex-column">
@@ -25,14 +24,7 @@
 
     </div>
 
-    {{-- Table --}}
     <div class="table-panel">
-
-        <div class="row align-items-center mb-3">
-            <div class="col">
-                <h5 class="mb-0">Restaurant List</h5>
-            </div>
-        </div>
 
         <div class="table-responsive">
             <table class="table align-middle">
@@ -46,17 +38,20 @@
                 </thead>
 
                 <tbody>
-
                     @foreach ($details as $detail)
                     <tr>
                         <td>
-                            <img src="{{ asset('images/restaurants/R' . $detail->restaurant->id . '.png') }}"
-                                alt="Restaurant Image"
+                            <img src="{{ asset($detail->image_main ?? 'images/default.png') }}"
                                 class="h-16 w-24 object-cover rounded">
                         </td>
 
-                        <td class="fw-semibold">{{ $detail->restaurant->name }}</td>
-                        <td class="text-muted">{{ $detail->location ?? 'No Location' }}</td>
+                        <td class="fw-semibold">
+                            {{ $detail->restaurant->name }}
+                        </td>
+
+                        <td class="text-muted">
+                            {{ $detail->location ?? 'No Location' }}
+                        </td>
 
                         <td class="text-center">
                             <a href="{{ route('admin.restaurants.edit', $detail->id) }}"
@@ -75,13 +70,14 @@
                                 </button>
                             </form>
                         </td>
+
                     </tr>
                     @endforeach
-
-
                 </tbody>
+
             </table>
         </div>
+
     </div>
 
 </div>

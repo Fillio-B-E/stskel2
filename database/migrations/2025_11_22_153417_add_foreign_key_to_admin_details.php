@@ -19,11 +19,11 @@ return new class extends Migration
             }
 
             // Add FK
-            $table->foreign('restaurant_id')
-                ->references('id')
-                ->on('restaurants')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+            // $table->foreign('restaurant_id')
+                // ->references('id')
+                // ->on('restaurants')
+                // ->cascadeOnDelete()
+                // ->cascadeOnUpdate();
         });
     }
 
