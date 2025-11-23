@@ -73,3 +73,11 @@ git checkout main
 2. Register page
 3. Landing page
 4. (Soon to come)
+
+# Main Feature
+1. Reservation of Restaurants
+
+# Entity
+1. Restaurant
+2. Menu
+3. User's Reservation

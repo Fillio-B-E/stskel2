@@ -141,15 +141,14 @@ $restaurantImages = [
                 </button>
             </form>
 
-            <!-- Popup -->
             <div id="orderPopup" class="hidden fixed inset-0 bg-black/50 flex justify-center items-center z-50">
                 <div class="bg-yellow-500 rounded-xl p-6 shadow-xl text-center w-[360px]">
                     <h2 class="text-2xl font-bold text-white mb-2">Hungry?</h2>
-                    <p class="text-white mb-5 text-sm">Would you like to order your food now?</p>
+                    <p class="text-white mb-5 text-sm">Would you like to see the restaurant's menu?</p>
                     <div class="flex justify-center gap-4">
                         <button id="orderNowBtn"
                             class="bg-black text-white font-semibold px-5 py-2 rounded-md hover:bg-gray-800 transition">
-                            Order Now
+                            See Menu
                         </button>
                         <button id="maybeLaterBtn"
                             class="bg-white text-gray-800 font-semibold px-5 py-2 rounded-md hover:bg-gray-100 transition">
@@ -167,21 +166,21 @@ $restaurantImages = [
                     const maybeLaterBtn = document.getElementById("maybeLaterBtn");
                     const form = document.getElementById("reserveForm");
 
-                    // submission guard
+                    
                     let submitting = false;
 
-                    // open popup (do not submit)
+                    
                     bookBtn.addEventListener("click", (e) => {
                         e.preventDefault();
                         popup.classList.remove("hidden");
                     });
 
-                    // helper to send form via fetch once
+                    
                     function submitReservation(callbackUrl) {
-                        if (submitting) return; // already submitting — ignore
+                        if (submitting) return;
                         submitting = true;
 
-                        // disable buttons to give immediate feedback
+                        
                         orderNowBtn.disabled = true;
                         maybeLaterBtn.disabled = true;
                         orderNowBtn.classList.add('opacity-60', 'cursor-not-allowed');

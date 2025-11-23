@@ -71,4 +71,13 @@ class ReservationController extends Controller
 
         return view('schedule.index', compact('reservations'));
     }
+
+    public function schedule()
+    {
+        $reservations = \App\Models\Reservation::where('user_id', Auth::id())
+            ->with('restaurant') // to get restaurant details
+            ->get();
+
+        return view('reservation.schedule', compact('reservations'));
+    }
 }

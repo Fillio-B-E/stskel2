@@ -17,7 +17,11 @@ class ReservationViewController extends Controller
     // Show a single restaurant detail
     public function show($id)
     {
-        $restaurant = Restaurant::with('adminDetails')->findOrFail($id);
-        return view('restaurant_detail', compact('restaurant'));
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Get menus belonging to this restaurant:
+        $menus = \App\Models\Menu::where('restaurant_id', $restaurant->id)->get();
+
+        return view('restaurant_detail', compact('restaurant', 'menus'));
     }
 }

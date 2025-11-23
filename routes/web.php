@@ -48,6 +48,8 @@ Route::middleware(['auth', 'checkByRole:admin'])->prefix('admin')->name('admin.'
     Route::put('/menu/{id}', [AdminMenuController::class, 'update'])->name('menu.update');
     Route::delete('/menu/{id}', [AdminMenuController::class, 'destroy'])->name('menu.destroy');
     
+    Route::get('/schedule', [ReservationController::class, 'index'])->name('schedule.index');
+
 });
 
 

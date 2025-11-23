@@ -37,17 +37,15 @@
 
 <body class="bg-gray-50 font-sans antialiased">
 
-    <!-- HEADER -->
-    <!-- Header: matches landing typography & sizes (no serif on links) -->
     <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
 
-            <!-- Logo: same size/weight as landing -->
+
             <a href="{{ url('/') }}" class="text-2xl font-bold tracking-wide font-spartan text-gray-800">
                 BOOKED.
             </a>
 
-            <!-- Nav: force font-spartan (no serif), same spacing + size as landing -->
+
             <nav class="hidden md:flex items-center">
                 <ul class="flex space-x-10 items-center">
                     <li>
@@ -63,8 +61,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="font-spartan text-lg font-medium text-gray-800 hover:text-yellow-600 transition">
+                        <a href="{{ route('schedule') }}"
+                            class="hover:text-yellow-600 transition {{ request()->is('schedule') ? 'text-yellow-500 font-bold' : '' }}">
                             Schedule
                         </a>
                     </li>

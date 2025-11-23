@@ -20,15 +20,27 @@
             <nav class="hidden md:flex space-x-10 font-medium">
                 <a href="{{ url('/landing') }}" class="hover:text-yellow-600 transition">About</a>
                 <a href="{{ route('reservation') }}" class="text-yellow-500 font-semibold hover:text-yellow-600 transition">Reservation</a>
-                <a href="#" class="hover:text-yellow-600 transition">Schedule</a>
-                <a href="#" class="hover:text-yellow-600 transition">Contact</a>
+                <a href="{{ route('schedule') }}"
+                    class="hover:text-yellow-600 transition {{ request()->is('schedule') ? 'text-yellow-500 font-bold' : '' }}">
+                    Schedule
+                </a>
             </nav>
 
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 font-medium">
                 @auth
-                <span class="font-medium text-gray-700">{{ Auth::user()->username }}</span>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="flex items-center space-x-2 text-red-500 hover:text-red-700 transition">
+                    <img src="{{ asset('icons/Headerlogout.png') }}" class="w-5 h-5" alt="Logout">
+                    <span>Logout</span>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+
+                <span class="text-black">{{ Auth::user()->username }}</span>
                 @endauth
-                <img src="../images/avatar.png" alt="Profile" class="w-10 h-10 rounded-full border-2 border-gray-200">
             </div>
         </div>
     </header>
@@ -56,99 +68,36 @@
     </section>
 
     <!-- Menu Grid -->
+    <!-- Menu Grid -->
     <section class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-8">
-
-        <!-- Menu 1 -->
+        @forelse($menus as $menu)
         <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M1.png" alt="Soupe à l’oignon" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Soupe à l’oignon</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Classic French onion soup with caramelized onions, beef broth, bread, and melted cheese.
-            </p>
-            <span class="text-green-600 font-bold">$40.00</span>
-        </div>
+            <!-- IMAGE -->
+            @if($menu->image)
+            <img src="{{ asset($menu->image) }}"
+                alt="{{ $menu->name }}"
+                class="w-full h-52 object-cover rounded-xl mb-4">
+            @else
+            <img src="{{ asset('images/default.png') }}"
+                alt="No Image"
+                class="w-full h-52 object-cover rounded-xl mb-4">
+            @endif
 
-        <!-- M 2 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M2.png" alt="Escargots de Bourgogne" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Escargots de Bourgogne</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Snails baked in garlic butter, parsley, and herbs, served in their shells.
-            </p>
-            <span class="text-green-600 font-bold">$70.00</span>
-        </div>
+            <!-- NAME -->
+            <h3 class="text-lg font-semibold mb-2">{{ $menu->name }}</h3>
 
-        <!-- M 3 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M3.png" alt="Foie Gras" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Foie Gras</h3>
+            <!-- DESCRIPTION -->
             <p class="text-gray-600 text-sm mb-3">
-                Rich goose liver terrine with brioche bread and fruit compote.
+                {{ $menu->description }}
             </p>
-            <span class="text-green-600 font-bold">$80.00</span>
         </div>
-
-        <!-- M 4 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M4.png" alt="Salade Niçoise" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Salade Niçoise</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Tuna, boiled eggs, olives, anchovies, and fresh vegetables with olive oil dressing.
-            </p>
-            <span class="text-green-600 font-bold">$80.00</span>
-        </div>
-
-        <!-- M 5 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M5.png" alt="Quiche Lorraine" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Quiche Lorraine</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Savory pie with cream, cheese, smoked bacon, and a buttery crust.
-            </p>
-            <span class="text-green-600 font-bold">$40.00</span>
-        </div>
-
-        <!-- M 6 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M6.png" alt="Pâté de Campagne" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Pâté de Campagne</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Rustic pork pâté with bread, pickles, and mustard.
-            </p>
-            <span class="text-green-600 font-bold">$80.00</span>
-        </div>
-
-        <!-- M 7 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M7.png" alt="Gougères" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Gougères</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Light cheese puffs made from choux pastry with Gruyère.
-            </p>
-            <span class="text-green-600 font-bold">$40.00</span>
-        </div>
-
-        <!-- M 8 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M8.png" alt="Moules Marinières" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Moules Marinières</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Mussels steamed in white wine, garlic, and shallots.
-            </p>
-            <span class="text-green-600 font-bold">$80.00</span>
-        </div>
-
-        <!-- M 9 -->
-        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
-            <img src="../images/M9.png" alt="Terrine de Légumes" class="w-full h-52 object-cover rounded-xl mb-4">
-            <h3 class="text-lg font-semibold mb-2">Terrine de Légumes</h3>
-            <p class="text-gray-600 text-sm mb-3">
-                Colorful layered vegetable terrine with herbs and cream.
-            </p>
-            <span class="text-green-600 font-bold">$80.00</span>
-        </div>
-
+        @empty
+        <p class="text-center text-gray-500">No menu available</p>
+        @endforelse
     </section>
+
+
+
 
 
     <!-- Footer Image Section -->

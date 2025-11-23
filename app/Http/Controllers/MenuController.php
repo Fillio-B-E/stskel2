@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
@@ -10,29 +11,7 @@ class MenuController extends Controller
     {
         $restaurant = Restaurant::findOrFail($restaurantId);
 
-        $menus = [
-            [
-                'name' => "Soupe à l’oignon",
-                'price' => 40,
-                'desc' => "Classic French onion soup with caramelized onions, beef broth, and melted cheese.",
-                'category' => "Appetizers",
-                'img' => null
-            ],
-            [
-                'name' => "Escargots de Bourgogne",
-                'price' => 70,
-                'desc' => "Snails baked in garlic butter, parsley, and herbs, served in their shells.",
-                'category' => "Appetizers",
-                'img' => null
-            ],
-            [
-                'name' => "Foie Gras",
-                'price' => 80,
-                'desc' => "Rich goose liver terrine with brioche bread and fruit compote.",
-                'category' => "Main Courses",
-                'img' => null
-            ],
-        ];
+        $menus = \App\Models\Menu::where('restaurant_id', $restaurantId)->get();
 
         return view('menu.show', compact('restaurant', 'menus'));
     }
