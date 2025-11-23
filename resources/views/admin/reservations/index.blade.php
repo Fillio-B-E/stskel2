@@ -1,13 +1,13 @@
 @extends('admin.layout')
 
-@section('title', 'Dashboard')
+@section('title', 'Reservations')
 
 @section('content')
 <div class="container-fluid">
-    <div class="page-title">Dashboard</div>
+    <div class="page-title">Reservations</div>
     <div class="page-sub"></div>
 
-    <div class="row g-4">
+    <div class="row g-4 mb-4">
         <div class="col-lg-6">
             <div class="stat-card">
                 <div class="stat-label">Total Book</div>
@@ -23,14 +23,14 @@
         </div>
     </div>
 
-    {{-- Table Panel --}}
+    {{-- Reservation Table --}}
     <div class="table-panel">
         <div class="row align-items-center mb-3">
             <div class="col">
-                <h5 class="mb-0">Latest Reservations</h5>
+                <h5 class="mb-0">Reservation List</h5>
             </div>
             <div class="col text-end">
-                {{-- Could add filters here --}}
+                {{-- Add filters here later --}}
             </div>
         </div>
 
@@ -48,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($latestReservations as $r)
+                    @forelse($reservations as $r)
                     <tr>
                         <td>#{{ $r->id }}</td>
 
@@ -63,7 +63,6 @@
                         </td>
 
                         <td>{{ $r->restaurant->name ?? 'Unknown' }}</td>
-
                         <td>
                             @php $status = $r->status ?? 'pending'; @endphp
 
@@ -73,15 +72,12 @@
                             <span class="badge-status badge-accepted">Accepted</span>
                             @elseif($status === 'denied')
                             <span class="badge-status badge-denied">Denied</span>
-                            @elseif($status === 'cancelled')
-                            <span class="badge-status badge-cancelled">Cancelled</span>
-                            @elseif($status === 'ongoing')
-                            <span class="badge-status badge-ongoing">On-Going</span>
                             @else
                             <span class="badge-status badge-cancelled">{{ ucfirst($status) }}</span>
                             @endif
                         </td>
 
+                        {{-- Actions --}}
                         <td>
                             @if($status === 'pending')
                             <form action="{{ route('admin.reservation.accept', $r->id) }}" method="POST" class="d-inline">
@@ -106,8 +102,26 @@
                     </tr>
                     @endforelse
                 </tbody>
-
             </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item {{ $reservations->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $reservations->previousPageUrl() ?: '#' }}" aria-label="Previous">‹</a>
+                    </li>
+
+                    {{-- current page indicator --}}
+                    <li class="page-item disabled">
+                        <span class="page-link">Page {{ $reservations->currentPage() }} of {{ $reservations->lastPage() }}</span>
+                    </li>
+
+                    <li class="page-item {{ $reservations->hasMorePages() ? '' : 'disabled' }}">
+                        <a class="page-link" href="{{ $reservations->nextPageUrl() ?: '#' }}" aria-label="Next">›</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
 

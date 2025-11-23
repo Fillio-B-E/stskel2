@@ -13,24 +13,15 @@ class AdminController extends Controller
     {
         $totalReservations = Reservation::count();
 
-        $totalGuests = Reservation::sum('guests');
-
         $totalCustomers = Reservation::distinct('user_id')->count('user_id');
-
-        $income = 0;
-        if (Schema::hasColumn('reservations', 'amount')) {
-            $income = Reservation::sum('amount');
-        } else {
-            $income = $totalGuests * 25;
-        }
 
         $latestReservations = Reservation::with('user')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->take(5)
+            ->get();
 
         return view('admin.dashboard', [
             'totalReservations'     => $totalReservations, 
-            'totalRevenue'      => $income,
             'totalCustomers'      => $totalCustomers,
             'latestReservations' => $latestReservations,
         ]);

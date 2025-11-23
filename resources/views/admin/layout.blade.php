@@ -134,7 +134,6 @@
             margin-top: 6px;
         }
 
-        /* TABLE */
         .table-panel {
             background: var(--card-bg);
             border-radius: 10px;
@@ -154,7 +153,11 @@
             border-radius: 8px;
             font-weight: 700;
             font-size: 14px;
+            display: inline-block;
+            width: 110px;
+            text-align: center;
         }
+
 
         .badge-pending {
             background: #f9f0c7;
@@ -171,30 +174,16 @@
             color: #c20b0b;
         }
 
-        .badge-cancelled {
-            background: #f1f1f1;
-            color: #6b6b6b;
-        }
-
-        .badge-ongoing {
-            background: #fff4e0;
-            color: #ad5a00;
-        }
-
         .btn-detail {
             background: #f1c94f;
             border-color: #f1c94f;
-            color: #000;
-            font-weight: 700;
+            width: 120px;
         }
 
-        @media (max-width: 991px) {
-            .admin-sidebar {
-                display: none;
-            }
-
-            .admin-content {
-                padding: 18px;
+        @media (min-width: 992px) {
+            .container-fluid {
+                padding-left: 40px !important;
+                padding-right: 40px !important;
             }
         }
 
@@ -216,6 +205,18 @@
 
         .logout-link:hover {
             color: #000;
+        }
+
+        /* Make all action buttons same width */
+        .btn-wide {
+            min-width: 90px !important;
+            /* You can increase to 100px if needed */
+            text-align: center;
+        }
+
+        .action-btn-group form,
+        .action-btn-group a {
+            margin-right: 6px;
         }
     </style>
 </head>

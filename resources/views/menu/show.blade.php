@@ -11,7 +11,6 @@
 
 <body class="bg-gray-50 font-sans">
 
-    <!-- Header -->
     <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
             <a href="{{ url('/') }}" class="text-2xl font-extrabold tracking-tight font-spartan text-gray-800">
@@ -34,10 +33,8 @@
         </div>
     </header>
 
-    <!-- Hero with Background Image -->
     <section class="text-center py-24 bg-cover bg-center relative"
         style="background-image: url('../images/menuTop.png');">
-        <!-- <div class="absolute inset-0 bg-black bg-opacity-60"></div> -->
         <div class="relative z-10">
             <h1 class="text-5xl font-playfair text-white mb-3">Discover the Menu</h1>
             <p class="text-yellow-400 italic text-xl">{{ $restaurant['name'] }}</p>
@@ -50,26 +47,6 @@
             class="filter-btn active flex items-center gap-2 bg-yellow-200 text-yellow-700 font-medium px-5 py-2 rounded-full shadow hover:bg-yellow-300 transition">
             <img src="../images/iconAll.png" alt="All Icon" class="w-5 h-5">All
         </button>
-        <button data-filter="appetizers"
-            class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
-            <img src="../images/iconAppetizer.png" alt="Appetizers Icon" class="w-5 h-5">Appetizers
-        </button>
-        <!-- <button data-filter="main"
-            class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
-            <img src="../images/iconMaincourse.png" alt="Main Courses Icon" class="w-5 h-5">Main Courses
-        </button>
-        <button data-filter="side"
-            class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
-            <img src="../images/iconSides.png" alt="Side Dishes Icon" class="w-5 h-5">Side Dishes
-        </button>
-        <button data-filter="dessert"
-            class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
-            <img src="../images/iconDessert.png" alt="Dessert Icon" class="w-5 h-5">Dessert
-        </button>
-        <button data-filter="beverages"
-            class="filter-btn flex items-center gap-2 bg-white text-gray-700 font-medium px-5 py-2 rounded-full border hover:bg-gray-100 transition">
-            <img src="../images/iconBeverages.png" alt="Beverages Icon" class="w-5 h-5">Beverages
-        </button> -->
 
         <button
             class="flex items-center gap-2 bg-yellow-200 text-yellow-700 font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-300 transition ml-auto">

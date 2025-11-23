@@ -10,6 +10,8 @@ use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\RestaurantAdminDetailController;
 use App\Http\Controllers\AdminRestaurantController;
 use App\Http\Controllers\ReservationViewController;
+use App\Http\Controllers\AdminReservationTabController;
+use App\Http\Controllers\AdminMenuController;
 
 //Menu
 Route::get('/menu/{restaurant}', [MenuController::class, 'show'])->name('menu.show');
@@ -31,21 +33,21 @@ Route::middleware(['auth', 'checkByRole:admin'])->prefix('admin')->name('admin.'
         ->name('dashboard');
 
     // Reservation actions
-    Route::post('/reservation/accept/{id}', [AdminReservationController::class, 'accept'])
-        ->name('reservation.accept');
+    Route::post('/reservation/accept/{id}', [AdminReservationController::class, 'accept'])->name('reservation.accept');
+    Route::post('/reservation/deny/{id}', [AdminReservationController::class, 'deny'])->name('reservation.deny');
+    Route::get('/reservation/{id}', [AdminReservationController::class, 'show'])->name('reservation.show');
+    Route::get('/reservation', [AdminReservationTabController::class, 'index'])->name('reservation.index');
 
-    Route::post('/reservation/deny/{id}', [AdminReservationController::class, 'deny'])
-        ->name('reservation.deny');
-
-    Route::get('/reservation/{id}', [AdminReservationController::class, 'show'])
-        ->name('reservation.show');
-
-    // Admin restaurant CRUD (THE ONLY CORRECT ONE)
-    Route::resource('restaurants', AdminRestaurantController::class);
+    // Route::resource('restaurants', AdminRestaurantController::class);
     Route::resource('restaurants', RestaurantAdminDetailController::class);
-    // Route::resource('restaurants', RestaurantController::class);
-    Route::get('/admin/restaurants/{id}/edit', [RestaurantController::class, 'edit'])
-        ->name('admin.restaurants.edit');
+
+    Route::get('/menu', [AdminMenuController::class, 'index'])->name('menu.index');
+    Route::get('/menu/create', [AdminMenuController::class, 'create'])->name('menu.create');
+    Route::post('/menu', [AdminMenuController::class, 'store'])->name('menu.store');
+    Route::get('/menu/{id}/edit', [AdminMenuController::class, 'edit'])->name('menu.edit');
+    Route::put('/menu/{id}', [AdminMenuController::class, 'update'])->name('menu.update');
+    Route::delete('/menu/{id}', [AdminMenuController::class, 'destroy'])->name('menu.destroy');
+    
 });
 
 

@@ -68,12 +68,6 @@
                             Schedule
                         </a>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="font-spartan text-lg font-medium text-gray-800 hover:text-yellow-600 transition">
-                            Contact
-                        </a>
-                    </li>
                 </ul>
             </nav>
 

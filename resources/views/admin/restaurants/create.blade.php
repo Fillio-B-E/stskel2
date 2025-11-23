@@ -15,7 +15,7 @@
         {{-- IMAGE --}}
         <div class="mb-4 row align-items-center">
             <label class="col-sm-3 col-form-label fw-semibold">Main Image</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <input type="file" name="image_main" class="form-control" required>
             </div>
         </div>
@@ -23,7 +23,7 @@
         {{-- NAME --}}
         <div class="mb-4 row align-items-center">
             <label class="col-sm-3 col-form-label fw-semibold">Restaurant Name</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <input type="text" name="name" class="form-control" required>
             </div>
         </div>
@@ -31,7 +31,7 @@
         {{-- LOCATION --}}
         <div class="mb-4 row align-items-center">
             <label class="col-sm-3 col-form-label fw-semibold">Location</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <input type="text" name="location" class="form-control" required>
             </div>
         </div>

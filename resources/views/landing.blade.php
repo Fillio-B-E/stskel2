@@ -52,7 +52,6 @@
                     <li><a href="about" class="text-yellow-400">About</a></li>
                     <li><a href="reservation" class="text-white hover:text-yellow-400">Reservation</a></li>
                     <li><a href="schedule" class="text-white hover:text-yellow-400">Schedule</a></li>
-                    <li><a href="contact" class="text-white hover:text-yellow-400">Contact</a></li>
                 </ul>
             </div>
 
